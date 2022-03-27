@@ -1,0 +1,311 @@
+@charset "UTF-8";
+@font-face {
+    font-family: 'HS-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/HS-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Hahmlet-SemiBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/Hahmlet-SemiBold.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Hahmlet-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/Hahmlet-Bold.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Hahmlet-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/Hahmlet-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'CBNUJIKJI';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2202@1.0/CBNUJIKJI.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 전체적용 */
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	width: 100%;
+	height: 100%;
+	font-family: 'Hahmlet-SemiBold';
+	color: darkslategrey;
+}
+
+a {
+	color: white;	
+	text-decoration: none;
+}
+
+a:hover {
+	color: darkorange;
+	padding-bottom: 5px;
+	border-bottom: 1px solid darkorange;
+}
+
+input, button, select {
+	font-family: 'Hahmlet-SemiBold';
+}
+
+button:hover {
+	cursor: pointer;
+}
+/* 전체적용 끝 */
+
+/* header.jsp */
+header {
+	height: 3.5em;
+	background-color: darkslategray;
+	font-family: 'HS-Regular';
+	font-size: 21px;
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;	
+}
+
+.header-container {
+	min-width: 500px;
+	width: 1270px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.logo, .to-login, .user-info {
+	margin: 6px 30px 0;
+	width: 169.5px;
+	white-space: nowrap;
+}
+
+.logo:hover {
+	cursor: pointer;
+}
+
+.to-login {
+	text-align: right;
+}
+
+.user-info > a {
+	margin-left: 20px;
+}	
+
+nav > ul {
+	display: flex;
+	justify-content: center;
+	list-style: none;
+	min-width: 330px;
+}
+
+nav > ul > li{
+	margin: 6px 18px 0;
+}
+
+/* header.jsp 끝 */
+
+/* loginForm.jsp */
+.body-wrapper {
+	min-height: 72vh;
+	min-width: 500px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-top: 70px;
+}
+
+.form {
+	display: flex;
+	flex-direction: column;	
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 100px;
+	padding: 25px 15px;
+	border: 1px solid darkgrey;
+	border-radius: 15px;
+	box-shadow: 1px 1px darkgrey;
+	width: 400px;
+	height: 390px;
+}
+
+	/* joinForm.jsp override */
+	.join-form {
+		height: 720px;
+	}
+
+h3 {
+	font-family: 'HS-Regular';
+	font-size: 34px;
+	color: darkslategrey;
+}
+
+.form form div {
+	display: flex;
+	flex-direction: column;
+	margin: 13px 0;
+}
+
+.form div label {
+	color: darkslategrey;
+	font-size: 15px;
+	margin-bottom: 8px;
+	padding: 0 8px;
+}
+
+#email-label {
+	font-size: 13px;
+	padding: 0 8px;
+}
+
+
+.form input, .join-form-domain {
+	width: 240px;
+	height: 18px;
+	padding: 10px 15px;
+	border: 1px solid grey;
+	border-radius: 5px;
+	font-size: 14px;
+	color: darkslategrey;
+}
+
+#domain {
+	display: none;
+}
+
+	.join-form > form > div > input {
+		width: 300px;
+	}
+	
+	.join-form input[name='email'] {
+		width: 118.1px;
+	}	
+	/* joinForm 연락처 입력란 */
+	.form > form > div > div {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+		margin: 0;
+	}
+	
+	.join-form-domain {
+		width: 142px;
+		height: 40px;
+		padding: 8px 10px 10px;
+	}
+	
+	.join-form-phone > input {
+		height: 14px;
+		width: 75px;
+		text-align: center;
+		padding: 10px 0;
+	}
+	
+	.join-form-phone > input:first-child {
+		width: 65px;
+	}
+	
+	.join-form-phone label {
+		font-size: 18px !important;
+	}
+	
+	.join-form-gender {
+		justify-content: center !important;
+	}
+	
+	.join-form-gender > span {	
+ 		margin: 0 10px 5px;
+ 		display: flex;
+	    align-items: center;
+	    font-size: 14px;
+	}
+	
+	input[name='gender'] {
+		display: inline;
+		width: 17px;
+		margin: 0 8px;
+	}
+
+
+.form button {
+	width: 150px;
+	height: 50px;
+	align-self: center;
+	background-color: darkorange;
+	border-style: hidden;
+	border-radius: 5px;
+	box-shadow: 2px 2px darkgrey;
+	margin-top: 8px;
+	font-family: 'Hahmlet-Bold';
+	font-size: 18px;
+	color: darkslategrey;
+	opacity: 0.8;
+}
+
+	.join-form button {
+	    width: 170px;
+	    height: 55px;
+	    margin-bottom: -15px;
+	    font-size: 21px;
+	}
+	
+	#submit-btn:disabled {
+    background-color: lightgray;
+    box-shadow: 0px 0px;
+    color: darkgrey;
+    opacity: 0.8;
+}
+
+.errMsg {
+	display: none;
+	color: tomato;
+	padding : 8px;
+	padding-bottom: 0;
+	margin-block-end: 0;
+	font-size: 14px;
+}
+
+.to-join {
+	font-size: 14px;
+	color: darkslategrey;
+	margin-top: 10px;
+}
+
+.to-join span a {
+	color: #8e8e8e;
+	margin-left: 8px;
+}
+
+.to-join span a:hover {
+	color: #D93D04;
+	opacity: 0.9;
+	padding-bottom: 1px;
+}
+/* loginForm.jsp 끝 */
+
+/* footer.jsp */
+footer {	
+	height: 170px;
+	background-color: darkorange;
+	opacity: 0.8;
+}
+
+.footer-container {
+	min-width: 500px;
+	width: 1270px;
+}
+/* footer.jsp 끝 */

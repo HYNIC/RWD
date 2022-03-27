@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.rwd.demo.mapper.IRecordMapper">
+
+	<insert id="regist">
+		insert into rwd_record (rec_num, btitle, writer, rate, one_line, content)
+			values (seq_rwd_record.nextval, #{btitle}, #{writer}, #{rate}, #{one_line}, #{content})
+	</insert>
+	
+	<select id="getList" resultType="com.rwd.demo.domain.RecordVO">
+		select * from rwd_record where rec_num > 0 order by rec_num desc
+	</select>
+	
+	<select id="getListWithPaging" resultType="com.rwd.demo.domain.RecordVO">
+		<![CDATA[
+			select 
+				rec_num, img, btitle, rate, one_line, content, regdate, update_date 
+			from (
+				select /*+ INDEX_DESC(rwd_record pk_rwd_record) */
+					rownum rn, rec_num, img, btitle, rate, one_line, content, regdate, update_date
+				from 
+					rwd_record
+				where 
+					writer = #{param2} and
+					rownum <= (#{param1.page} * #{param1.amount})
+				)
+			where rn > ((#{param1.page} - 1) * #{param1.amount})			
+		]]>
+	</select>
+	
+	<select id="getTotal" resultType="int">
+		select count(*) from rwd_record
+	</select>
+	
+	<select id="getRecord" resultType="com.rwd.demo.domain.RecordVO">
+		select * from rwd_record where rec_num = #{rec_num}
+	</select>
+	
+	<update id="modify">
+		update rwd_record 
+			set rate = #{rate}, 
+				one_line = #{one_line},
+				content = #{content},
+				img = #{img}, 
+				update_date = sysdate
+		where rec_num = #{rec_num}
+	</update>
+	
+	<delete id="remove">
+		delete from rwd_record where rec_num = #{rec_num}
+	</delete>
+	
+</mapper>

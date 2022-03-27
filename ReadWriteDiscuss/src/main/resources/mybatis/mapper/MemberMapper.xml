@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.rwd.demo.mapper.IMemberMapper">
+	<select id="getMember" resultType="com.rwd.demo.domain.MemberVO">
+		select * from rwd_user where email = #{email}
+	</select>
+	
+	<insert id="regist">
+		insert into rwd_user (email, username, user_pw, phone, gender)
+			values (#{email}, #{username}, #{user_pw}, #{phone}, #{gender})
+	</insert>
+	
+	<select id="checkEmail" resultType="int">
+		select count(*) from rwd_user where email = #{email}
+	</select>
+
+</mapper>
