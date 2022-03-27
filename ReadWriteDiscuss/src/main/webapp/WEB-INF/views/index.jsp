@@ -3,9 +3,9 @@
 <%@include file="../includes/header.jsp" %>
 	
 <div class="body-wrapper">
-	<h3>인덱스 페이지</h3>
-	<div>이달의 책</div>
-	<div>독서퀴즈</div>
-	<div>토론바로가기</div> <!-- 큰 이미지 잡아두기 -->
+	<section>
+		<h1>The world belongs to<br>those who READ</h1>
+	</section>
 </div>
-<%@include file="../includes/footer.jsp" %>
+
+<!-- footer는 삭제하고 대신 footer에 들어갈 내용을 화면에 띄우기.(About, 등등) -->

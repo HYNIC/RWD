@@ -3,6 +3,7 @@
 <%@include file="../../includes/header.jsp" %>
 
 <div class="body-wrapper">
+	
 	<div class="form login-form">
 		<h3>LOG-IN</h3>
 		
@@ -30,6 +31,8 @@
 		</div>
 		
 	</div>
+	
+
 </div>
 <script src="/js/member_login.js"></script>
 <%@include file="../../includes/footer.jsp" %>

@@ -1,5 +1,6 @@
 document.querySelector("button").addEventListener("click", checkInput);
 
+
 function checkInput(event) {
 	event.preventDefault();
 	let email = document.querySelector("input[name='email']");

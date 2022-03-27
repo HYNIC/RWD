@@ -30,15 +30,22 @@ public class RecordController {
 	public String getRecordList(PageCriteria cri, Model model, HttpSession session) {
 		
 		MemberVO mem = (MemberVO) session.getAttribute("user");
-		System.out.println(mem.toString());
 		
-		cri.setAmount(5);		
-		model.addAttribute("recList", service.getList(cri, mem)); // 리스트 가져오기 
+		if (mem == null) {
+			model.addAttribute("loginMsg", "로그인이 필요합니다.");
+			return "redirect:/member/login";
+		} else {
+			System.out.println(mem.toString());
+			
+			cri.setAmount(5);		
+			model.addAttribute("recList", service.getList(cri, mem)); // 리스트 가져오기 
+			
+			int total = service.getTotal();		
+			model.addAttribute("pageMaker", new PageDTO(cri, total)); // 페이지 메이커
+			
+			return "record/board";
+		}
 		
-		int total = service.getTotal();		
-		model.addAttribute("pageMaker", new PageDTO(cri, total)); // 페이지 메이커
-		
-		return "record/board";
 	}
 	
 	@PostMapping("/board")

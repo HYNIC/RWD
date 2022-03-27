@@ -3,7 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../../includes/header.jsp" %>
 
-<div class="body-wrapper body-wrapper-record">
+<div class="body-wrapper">
+
+<div class="body-wrapper-record">
 
 	<!-- 페이징 -->
 	<div class="record-paging">
@@ -56,6 +58,7 @@
 	<div class="record-paging">
 		<button data-oper="next">▶</button>
 	</div>
+</div> 
 	
 </div>
 

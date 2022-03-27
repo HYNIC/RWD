@@ -7,35 +7,49 @@ textarea {
 	padding: 15px 17px;
 }
 
-.body-wrapper-record {
-	padding-top: 0px;
+h2 {
+	display: inline;
+	font-family: 'Hahmlet-Bold';
+	padding-left: 10px;
 }
 
+.body-wrapper-record {
+	width: 1270px;
+	display: flex;
+	justify-self: center;
+	justify-content: center;
+	align-self: flex-start;
+	align-items: center;
+}
+
+
 .record-paging {
-	overflow: hidden;
+	width: 50px;
 	clear: both;
 }
 
 .record-paging > button {
-	width: 0;
-	height: 100%;
+	width: 50px;
+	height: 230px;
+	margin-top: 25px;
+	text-align: center;
 	font-size: 30px;
 	position: absolute;
-	transform: translate(-50%, -50%);
+	transform: translateY(-50%);
 	background-color: transparent;
 	color: darkslategrey;
 	border: none;
 }
 
+.record-paging > button:hover {
+	background-color: darkgrey;
+	opacity: 0.5;
+	color: darkorange;
+}
+
 .record-board-wrapper {
 	margin: 50px 0;
 	align-self: flex-start;
-}
-
-.record-board-wrapper h2 {
-	display: inline;
-	font-family: 'Hahmlet-Bold';
-	padding-left: 10px;
 }
 
 .record-board-wrapper button {
@@ -54,11 +68,6 @@ textarea {
 .record-board-wrapper > div {
 	margin: 15px;
 	position: relative;
-}
-
-.record-paging {
-	width: 800px;
-	text-align: center;
 }
 
 .record-container {
@@ -115,7 +124,23 @@ textarea {
 	height: 700px;
 }
 
-.record-form input {
-	width: 714px;
+#record-regi-form {
+	margin-top: 15px;
 }
 
+#space-between {
+	display: flex;
+	justify-content: space-between;
+}
+
+#record-regi-form > div{
+	margin: 10px 0;
+}
+
+#record-regi-form label{
+	margin-right: 5px;
+}
+
+#record-regi-form input {
+	width: 580px;
+}
