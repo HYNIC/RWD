@@ -1,5 +1,6 @@
 package com.rwd.demo.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.rwd.demo.domain.MemberVO;
@@ -19,5 +20,7 @@ public interface IRecordService {
 	public int modify(RecordVO vo);
 	
 	public int remove(RecordVO vo);
+	
+	public HashMap<Integer, String> rateMap();
 	
 }

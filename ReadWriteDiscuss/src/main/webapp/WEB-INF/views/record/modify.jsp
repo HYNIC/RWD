@@ -25,12 +25,10 @@
 			<div>
 				<label>평점</label>
 				<select name="rate">
-					<option value="☆☆☆☆☆">☆☆☆☆☆</option>
-					<option value="★☆☆☆☆">★☆☆☆☆</option>
-					<option value="★★☆☆☆">★★☆☆☆</option>
-					<option value="★★★☆☆">★★★☆☆</option>
-					<option value="★★★★☆">★★★★☆</option>
-					<option value="★★★★★">★★★★★</option>
+					<c:forEach var="rate" items="${rateList}">
+						<option value="${rate.key}" <c:if test="${record.rate eq rate.key}">selected</c:if>>${rate.value}</option>
+					</c:forEach>
+					
 				</select>
 			</div>
 			

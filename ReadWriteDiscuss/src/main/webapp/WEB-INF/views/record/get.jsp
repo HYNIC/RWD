@@ -23,7 +23,11 @@
 		<!-- 평점 -->
 		<div>
 			<label>평점</label>				
-			<label>${record.rate}</label>
+			<label>
+				<c:forEach var="rate" items="${rateList}">
+					<c:if test="${record.rate eq rate.key}">${rate.value}</c:if>
+				</c:forEach>
+			</label>
 		</div>
 		
 		<!-- 한줄감상 -->

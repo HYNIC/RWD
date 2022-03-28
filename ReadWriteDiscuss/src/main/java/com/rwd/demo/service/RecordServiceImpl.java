@@ -1,5 +1,6 @@
 package com.rwd.demo.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,19 @@ public class RecordServiceImpl implements IRecordService {
 	@Override
 	public int remove(RecordVO vo) {
 		return mapper.remove(vo);
+	}
+
+	@Override
+	public HashMap<Integer, String> rateMap() {
+		HashMap<Integer, String> map = new HashMap<Integer, String>();
+		map.put(0, "☆☆☆☆☆");
+		map.put(1, "★☆☆☆☆");
+		map.put(2, "★★☆☆☆");
+		map.put(3, "★★★☆☆");
+		map.put(4, "★★★★☆");
+		map.put(5, "★★★★★");
+		
+		return map;
 	}
 
 }

@@ -2,6 +2,7 @@ package com.rwd.demo.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -78,8 +79,8 @@ public class RecordController {
 	
 	// 게시글 등록
 	@GetMapping("/regi")
-	public String regist() {
-		
+	public String regist(Model model) {
+		model.addAttribute("rateList", service.rateMap());
 		return "record/regiForm";
 	}
 	
@@ -98,9 +99,18 @@ public class RecordController {
 	}
 	
 	// 상세조회/수정/삭제 페이지
-	@GetMapping({"/get","/modify"})
+	@GetMapping("/get")
 	public void getRecord(@RequestParam("num") Long num, Model model) {
+		model.addAttribute("rateList", service.rateMap());
 		model.addAttribute("record", service.getRecord(num));
+	}
+	
+	@GetMapping("/modify")
+	public String modifyForm (@RequestParam("num") Long num, Model model) {
+		
+		model.addAttribute("rateList", service.rateMap());
+		model.addAttribute("record", service.getRecord(num));
+		return "record/modify";
 	}
 	
 	// 수정 처리

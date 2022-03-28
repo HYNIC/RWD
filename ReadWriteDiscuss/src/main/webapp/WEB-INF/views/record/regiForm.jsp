@@ -25,12 +25,9 @@
 					<label>평점</label>
 					<select name="rate">
 						<option value="" selected>--선택--</option>
-						<option value="0">☆☆☆☆☆</option>
-						<option value="1">★☆☆☆☆</option>
-						<option value="2">★★☆☆☆</option>
-						<option value="3">★★★☆☆</option>
-						<option value="4">★★★★☆</option>
-						<option value="5">★★★★★</option>
+						<c:forEach var="rate" items="${rateList}">
+							<option value="${rate.key}">${rate.value}</option>
+						</c:forEach>
 					</select>
 				</span>
 			</div>
