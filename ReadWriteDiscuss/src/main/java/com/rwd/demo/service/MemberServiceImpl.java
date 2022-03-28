@@ -19,10 +19,14 @@ public class MemberServiceImpl implements IMemberService {
 
 	@Override
 	public boolean doLogin(MemberVO vo) {
-		if (vo.getUser_pw().equals(getMember(vo).getUser_pw())) {
-			return true;
-		}
-		return false;
+		if (getMember(vo) != null) {
+			if (vo.getUser_pw().equals(getMember(vo).getUser_pw())) {
+				return true;
+			}
+		} 
+		
+		return false;	
+	
 	}
 
 	@Override

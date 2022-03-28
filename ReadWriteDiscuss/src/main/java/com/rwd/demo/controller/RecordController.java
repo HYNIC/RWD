@@ -1,6 +1,9 @@
 package com.rwd.demo.controller;
 
-import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,22 +28,31 @@ public class RecordController {
 	@Autowired
 	IRecordService service;
 
-
+	// 기본 목록 
 	@GetMapping("")
-	public String getRecordList(PageCriteria cri, Model model, HttpSession session) {
+	public String getRecordList(PageCriteria cri, Model model, HttpSession session, HttpServletResponse response) {
 		
 		MemberVO mem = (MemberVO) session.getAttribute("user");
 		
 		if (mem == null) {
-			model.addAttribute("loginMsg", "로그인이 필요합니다.");
-			return "redirect:/member/login";
+			
+			response.setContentType("text/html;charset=utf-8");
+			
+			try {
+				PrintWriter out = response.getWriter();
+				out.print("<script>alert('로그인이 필요한 게시판입니다');location.href='/member/login';</script>");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			return null;
 		} else {
-			System.out.println(mem.toString());
 			
 			cri.setAmount(5);		
 			model.addAttribute("recList", service.getList(cri, mem)); // 리스트 가져오기 
 			
-			int total = service.getTotal();		
+			int total = service.getTotal(mem);
+			model.addAttribute("total", total);
 			model.addAttribute("pageMaker", new PageDTO(cri, total)); // 페이지 메이커
 			
 			return "record/board";
@@ -48,6 +60,7 @@ public class RecordController {
 		
 	}
 	
+	// 페이징 처리
 	@PostMapping("/board")
 	public String getMore(@RequestParam("page") int page, RedirectAttributes rttr) {
 		rttr.addAttribute("page", page);		
@@ -63,12 +76,14 @@ public class RecordController {
 //		return service.getList(cri);
 //	}
 	
+	// 게시글 등록
 	@GetMapping("/regi")
 	public String regist() {
 		
 		return "record/regiForm";
 	}
 	
+	// 게시글 등록 처리
 	@PostMapping("/regi")
 	public String doRegist(RecordVO record, RedirectAttributes rttr, HttpSession session) {
 		MemberVO user = (MemberVO) session.getAttribute("user"); // 로그인한 사용자 정보 찾기.
@@ -82,17 +97,20 @@ public class RecordController {
 		return "redirect:/record/";
 	}
 	
+	// 상세조회/수정/삭제 페이지
 	@GetMapping({"/get","/modify"})
 	public void getRecord(@RequestParam("num") Long num, Model model) {
 		model.addAttribute("record", service.getRecord(num));
 	}
 	
+	// 수정 처리
 	@PostMapping("/modify")
 	public String doModify(RecordVO vo) {
 		service.modify(vo);
 		return "redirect:/record/get?num=" + vo.getRec_num();
 	}
 	
+	// 삭제 처리
 	@PostMapping("/remove")
 	public String doRemove(RecordVO vo) {
 		service.remove(vo);

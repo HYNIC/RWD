@@ -12,7 +12,7 @@ public interface IRecordService {
 	
 	public List<RecordVO> getList(PageCriteria cri, MemberVO mem);
 	
-	public int getTotal();
+	public int getTotal(MemberVO mem);
 	
 	public RecordVO getRecord(Long rec_num);
 	

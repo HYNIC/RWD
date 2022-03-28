@@ -28,10 +28,7 @@ create table rwd_record (
     constraint pk_rwd_record primary key (rec_num)
 );
 
-alter table rwd_record add img varchar2(200);
-alter table rwd_record add writer varchar2(20);
 
-drop table rwd_record;
 
 create sequence seq_rwd_record nocache;
 

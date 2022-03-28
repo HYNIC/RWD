@@ -32,7 +32,7 @@
 	</select>
 	
 	<select id="getTotal" resultType="int">
-		select count(*) from rwd_record
+		select count(*) from rwd_record where writer = #{email}
 	</select>
 	
 	<select id="getRecord" resultType="com.rwd.demo.domain.RecordVO">

@@ -17,7 +17,7 @@ public interface IRecordMapper {
 	
 	public List<RecordVO> getListWithPaging(PageCriteria cri, String email);
 	
-	public int getTotal();
+	public int getTotal(MemberVO mem);
 	
 	public RecordVO getRecord(Long rec_num);
 	

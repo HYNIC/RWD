@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+#discuss-board a {
+	color: black;
+}
+
+#discuss-board a:hover {
+	color: darkorange;
+}

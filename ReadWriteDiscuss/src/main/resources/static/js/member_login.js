@@ -25,6 +25,7 @@ function checkInput(event) {
 		return false;
 	}
 	
+	
 	document.querySelector("#loginForm").submit();
-	alert(email.value + "님 환영합니다");
+	
 }

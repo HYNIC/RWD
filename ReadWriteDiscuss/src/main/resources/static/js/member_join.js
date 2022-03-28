@@ -174,6 +174,7 @@ function doJoin(event) {
 	joinForm.appendChild(genderTag);
 	
 	joinForm.submit();
+	alert(nameTag.value + "님 환영합니다.");
 	
 }
 

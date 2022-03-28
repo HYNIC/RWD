@@ -51,7 +51,7 @@
 			<!-- 등록버튼 -->
 			<div>
 				<button id="listBtn">목록</button>
-				<button id="modifyBtn">수정</button>
+				<button id="modBtn">수정</button>
 				<button id="removeBtn">삭제</button>
 			</div> 
 		

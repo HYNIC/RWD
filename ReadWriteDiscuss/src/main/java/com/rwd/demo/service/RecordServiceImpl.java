@@ -26,8 +26,9 @@ public class RecordServiceImpl implements IRecordService {
 		return mapper.getListWithPaging(cri, mem.getEmail());
 	}
 	
-	public int getTotal() {
-		return mapper.getTotal();
+	@Override
+	public int getTotal(MemberVO mem) {
+		return mapper.getTotal(mem);
 	}
 
 	@Override

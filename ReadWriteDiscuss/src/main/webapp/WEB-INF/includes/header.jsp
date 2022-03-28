@@ -20,7 +20,7 @@
 		<nav>
 			<ul>
 				<li><a href="/record/">기록</a></li>
-				<li><a href="#">토론</a></li>
+				<li><a href="/discuss/">토론</a></li>
 				<li><a href="#">북킷리스트</a></li>
 			</ul>
 		</nav>
