@@ -144,3 +144,9 @@ h2 {
 #record-regi-form input {
 	width: 580px;
 }
+
+/* /record/get.jsp */
+.record-board-wrapper > h3 {
+	color: #D93D04;
+	padding-left: 10px;
+}

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rwd.demo.domain.MemberVO;
@@ -27,8 +26,8 @@ public class ReplyController {
 	@Autowired
 	IReplyService service;
 	
-	@PostMapping(value = "/new", produces = "application/json")
-	public ResponseEntity<String> regist(ReplyVO vo, HttpSession session) {
+	@PostMapping(value = "/regi", produces = "application/json")
+	public ResponseEntity<String> regist(@RequestBody ReplyVO vo, HttpSession session) {
 		MemberVO mem = (MemberVO) session.getAttribute("user");
 		vo.setReplyer(mem.getEmail());
 		int result = service.regist(vo);

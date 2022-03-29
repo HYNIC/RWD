@@ -10,7 +10,7 @@ import com.rwd.demo.domain.ReplyVO;
 import com.rwd.demo.mapper.IReplyMapper;
 
 @Service
-public class ReplyService implements IReplyService {
+public class ReplyServiceImpl implements IReplyService {
 
 	@Autowired
 	IReplyMapper mapper;

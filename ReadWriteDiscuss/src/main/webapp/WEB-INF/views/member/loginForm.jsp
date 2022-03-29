@@ -34,5 +34,5 @@
 	
 
 </div>
-<script src="/js/member_login.js"></script>
+<script src="/js/login.js"></script>
 <%@include file="../../includes/footer.jsp" %>

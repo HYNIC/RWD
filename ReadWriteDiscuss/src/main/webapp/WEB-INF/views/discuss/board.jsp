@@ -85,5 +85,5 @@
 
 </div>
 
-<script src="/js/script_discuss.js"></script>
+<script src="/js/discuss.js"></script>
 <%@include file="../../includes/footer.jsp" %>

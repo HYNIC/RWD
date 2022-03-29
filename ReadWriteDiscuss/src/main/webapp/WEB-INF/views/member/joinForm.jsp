@@ -78,5 +78,5 @@
 </div>
 
 
-<script src="/js/member_join.js"></script>
+<script src="/js/join.js"></script>
 <%@include file="../../includes/footer.jsp" %>

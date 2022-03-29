@@ -113,9 +113,88 @@ if (searchBtn) {
 	});
 }
 
+let replyBtn = document.querySelector("#replyBtn");
+let replyInput = document.querySelector("input[name='reply']");
+
+let dis_num_value = Number(document.querySelector("#num").value); 
+if (replyBtn) {
+	replyBtn.addEventListener("click", () => {
+		var reply = {
+			reply: replyInput.value,
+			dis_num: dis_num_value
+			}
+		
+		replyService.add(reply);
+		alert("댓글등록완료");
+		
+		replyInput.value = "";
+			
+		//showList(-1); // legacy프로젝트에서 있던것.
+	});
+}
+
+
+
+function showList() {
+	replyService.getList
+}
+
+
+
+// replyService 객체?
+var replyService = (function() {
+	
+	var xhr = new XMLHttpRequest();
+	let xhrCondition = (xhr.readyState == 4 && xhr.status == 200)
+	
+	function add(reply) {
+		xhr.onreadystatechange = function() {
+			if (xhrCondition) {
+				getList();				
+			}
+				
+		}
+		
+		xhr.open('post', '/replies/regi');
+		xhr.responseType = "json";
+		xhr.setRequestHeader('Content-Type', 'application/json');
+		xhr.send(JSON.stringify(reply));
+		
+	}
+	
+	function getList(param, callback) {
+		
+		let num = param.dis_num;
+		//let page = param.page || 1;
+		
+		xhr.onreadystatechange = function() {
+			if (xhrCondition) {
+				let data = xhr.response;
+				
+				if(callback) {
+					callback();
+				}
+			}
+		}
+		
+		xhr.open('post', '/replies/' + num);
+		xhr.responseType = "json";
+		xhr.setRequestHeader('Content-Type', 'application/json');
+		xhr.send();
+		
+		
+		
+		
+	}
+		
+	return {
+		add : add
+	};
+	
+})();
 
 // 댓글 작성폼
-let replyBtn = document.querySelector("#replyBtn");
+/*let replyBtn = document.querySelector("#replyBtn");
 if (replyBtn) {
 	replyBtn.addEventListener("click", (e) => {
 		e.preventDefault();
@@ -135,3 +214,4 @@ if (replyBtn) {
 		xhr.send();
 	})
 }
+*/

@@ -60,5 +60,5 @@
 	</div>
 </div>
 
-<script src="/js/script_record.js"></script>
+<script src="/js/record.js"></script>
 <%@include file="../../includes/footer.jsp" %>

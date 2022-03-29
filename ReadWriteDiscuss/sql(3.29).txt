@@ -1,0 +1,161 @@
+create table rwd_user (
+    email varchar2(50) primary key,
+    username varchar2(20) not null,
+    user_pw varchar2(50) not null,
+    phone varchar2(13) not null,
+    gender varchar2(6) not null,
+    regdate date default sysdate,
+    update_date date default sysdate
+);
+
+insert into rwd_user (email, username, user_pw, phone, gender) values ('admin@rwd.com', 'admin', 'admin123', 'admin', 'admin');
+
+select * from rwd_user;
+
+commit;
+
+-- rwd_record
+create table rwd_record (
+    rec_num number(5),
+    img varchar2(200), 
+    btitle varchar2(50) not null,
+    writer varchar2(50) not null,
+    rate varchar2(15),
+    one_line varchar2(200) not null,
+    content varchar2(4000) not null,
+    regdate date default sysdate,
+    update_date date default sysdate,
+    constraint pk_rwd_record primary key (rec_num)
+);
+
+alter table rwd_record modify (writer varchar2(50));
+desc rwd_record;
+insert into rwd_record values (0, 'https://image.aladin.co.kr/product/27669/17/cover500/8949114119_1.jpg', 
+                            'test', 'admin@rwd.com', '★★★★★', '너무너무 재밌어요 짱!', 'test test test \n test',  sysdate, sysdate);
+
+insert into rwd_record values (seq_rwd_record.nextval, 
+'https://image.aladin.co.kr/product/29149/44/cover500/k732837272_1.jpg',
+'아무튼, 피아노', 'admin@rwd.com', '★★★★★', '피아노가 다시금 치고 싶어지는 책', 'test test test \n test',  sysdate, sysdate);
+
+create sequence seq_rwd_record nocache;
+
+desc rwd_record;
+
+select * from rwd_record order by rec_num desc;
+
+select /*+ INDEX_DESC(rwd_record pk_rwd_record) */
+    rec_num, btitle, rate, one_line, content, regdate, update_date
+from 
+    rwd_record
+where
+	rownum <= 25;
+
+select count(*) from rwd_record;
+
+commit;
+
+-- rwd_discuss 테이블
+create table rwd_discuss (
+    dis_num number(8),
+    subject varchar2(100),
+    title varchar2(150), 
+    writer varchar2(50),
+    content varchar2(4000),
+    regdate date default sysdate,
+    update_date date default sysdate,
+    constraint pk_rwd_discuss primary key (dis_num)
+);
+
+desc rwd_discuss;
+
+create sequence seq_rwd_discuss nocache;
+
+
+
+insert into rwd_discuss values (0, '아무튼, 피아노', '뚱땅뚱땅 피아노 치고 싶어짐 ㅎ', 'admin@rwd.com', '링가링가링가 링가링가링', sysdate, sysdate);
+
+insert into rwd_discuss values (seq_rwd_discuss.nextval,'아무튼,피아노', '뚱땅뚱땅 피아노 치고 싶어짐 ㅎ', 'admin@rwd.com', '링가링가링가 링가링가링', sysdate, sysdate);
+
+select * from rwd_discuss;
+
+commit;
+
+-- view_rwd_discuss 생성
+create or replace force view view_rwd_discuss
+as
+    select 
+        d.dis_num, d.subject, d.title, u.username, d.content, d.regdate, d.update_date
+    from 
+        rwd_discuss d, rwd_user u
+    where 
+        d.dis_num > 0 and
+        d.writer = u.email
+    order by
+        d.dis_num desc;
+
+select * from view_rwd_discuss;
+drop view view_rwd_discuss;
+
+commit;
+-- discuss getTotal
+select count(*) from rwd_discuss where dis_num > 0;
+
+-- view 이용 쿼리
+select 
+    dis_num, subject, title, username, content, regdate, update_date
+from (
+    select 
+        rownum rn, dis_num, subject, title, username, content, regdate, update_date
+    from
+        view_rwd_discuss
+    where
+        rownum <= 20
+    order by dis_num desc
+    )
+where rn > 10;
+
+-- view 만들기 전 테스트
+select 
+    dis_num, subject, title, username, content, regdate, update_date
+from (
+    select 
+        rownum rn, dis_num, subject, title, username, content, regdate, update_date
+    from (
+        select 
+            d.dis_num, d.subject, d.title, u.username, d.content, d.regdate, d.update_date
+        from 
+            rwd_discuss d,
+            rwd_user u
+        where d.writer = u.email
+        order by d.dis_num desc
+        )
+    where rownum <=20
+    )
+where rn > 10;
+
+desc view_rwd_discuss;
+
+-- reply 테이블
+create table rwd_discuss_reply (
+    re_num number(8),
+    dis_num number(8) not null,
+    reply varchar2(1000) not null,
+    replyer varchar2(50) not null, 
+    replydate date default sysdate,
+    update_date date default sysdate
+);
+
+desc rwd_discuss_reply;
+
+alter table rwd_discuss_reply add constraint pk_discuss_reply primary key (re_num);
+alter table rwd_discuss_reply add constraint fk_discuss_reply foreign key (dis_num) references rwd_discuss (dis_num);
+
+create sequence seq_discuss_reply;
+
+insert into rwd_discuss_reply (re_num, dis_num, reply, replyer) values (seq_discuss_reply.nextval, 54, '댓글댓글처음 만들기', 'admin@rwd.com');
+
+select * from rwd_discuss_reply;
+
+select * from rwd_discuss_reply where dis_num = 54 and re_num > 0 order by re_num;
+
+commit;
