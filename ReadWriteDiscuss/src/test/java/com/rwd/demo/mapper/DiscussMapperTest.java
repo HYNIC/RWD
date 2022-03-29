@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.rwd.demo.domain.DiscussVO;
 import com.rwd.demo.domain.MemberVO;
+import com.rwd.demo.domain.PageCriteria;
 
 @SpringBootTest
 class DiscussMapperTest {
@@ -51,11 +52,22 @@ class DiscussMapperTest {
 		assertEquals(1, mapper.modify(dis));
 	}
 	
+//	@Test
+//	void testRemove() {
+//		DiscussVO dis = new DiscussVO();
+//		dis.setDis_num(7L);
+//		assertEquals(1, mapper.remove(dis));
+//	}
+	
+//	@Test
+//	void testGetTotal() {
+//		assertEquals(18, mapper.getTotal());
+//	}
+	
 	@Test
-	void testRemove() {
-		DiscussVO dis = new DiscussVO();
-		dis.setDis_num(7L);
-		assertEquals(1, mapper.remove(dis));
+	void testGetListWithPaging() {
+		PageCriteria cri = new PageCriteria();
+		assertNotNull(mapper.getListWithPaging(cri));
 	}
 
 }

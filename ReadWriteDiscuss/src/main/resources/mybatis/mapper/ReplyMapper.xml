@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.rwd.demo.mapper.IReplyMapper">
+
+	<insert id="regist">
+		insert into rwd_discuss_reply (re_num, dis_num, reply, replyer)
+			values (seq_discuss_reply.nextval, #{dis_num}, #{reply}, #{replyer})
+	</insert>
+
+	<select id="getList" resultType="com.rwd.demo.domain.ReplyVO">
+		select * from rwd_discuss_reply where dis_num = #{num} and re_num > 0 order by re_num
+	</select>
+	
+</mapper>

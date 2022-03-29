@@ -18,8 +18,8 @@ public class PageDTO {
 		this.cri = cri;
 		this.total = total;
 		
-		this.endPage = (int) (Math.ceil(cri.getPage() / 10.0)) * 10; // 10은 한번에 표시될 페이지 번호
-		this.startPage = this.endPage - 9;
+		this.endPage = (int) (Math.ceil(cri.getPage() / 5.0)) * 5; // 10은 한번에 표시될 페이지 번호
+		this.startPage = this.endPage - 4;
 		
 		this.realEnd= (int) (Math.ceil((total * 1.0) / cri.getAmount()));
 		

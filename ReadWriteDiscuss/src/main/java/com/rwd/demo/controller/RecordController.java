@@ -35,6 +35,7 @@ public class RecordController {
 		
 		MemberVO mem = (MemberVO) session.getAttribute("user");
 		
+		// 이용자 로그인 확인 
 		if (mem == null) {
 			
 			response.setContentType("text/html;charset=utf-8");
@@ -49,6 +50,7 @@ public class RecordController {
 			return null;
 		} else {
 			
+			// 로그인 된 상태라면 게시판 보여주기.
 			cri.setAmount(5);		
 			model.addAttribute("recList", service.getList(cri, mem)); // 리스트 가져오기 
 			

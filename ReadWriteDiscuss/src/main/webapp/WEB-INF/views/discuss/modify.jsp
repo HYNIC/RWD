@@ -28,6 +28,9 @@
 		</div>
 		
 		<input type="hidden" name="dis_num" value="${discuss.dis_num}">
+		<input type="hidden" name="page" value="${cri.page}">
+		<input type="hidden" name="type" value="${cri.type}">
+		<input type="hidden" name="keyword" value="${cri.keyword}">
 	</form>
 </div>
 

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.rwd.demo.domain.DiscussVO;
 import com.rwd.demo.domain.MemberVO;
+import com.rwd.demo.domain.PageCriteria;
 import com.rwd.demo.mapper.IDiscussMapper;
 
 @Service
@@ -21,8 +22,8 @@ public class DiscussServiceImpl implements IDiscussService {
 	}
 
 	@Override
-	public List<DiscussVO> getList() {
-		return mapper.getList();
+	public List<DiscussVO> getList(PageCriteria cri) {
+		return mapper.getListWithPaging(cri);
 	}
 
 	@Override
@@ -38,6 +39,11 @@ public class DiscussServiceImpl implements IDiscussService {
 	@Override
 	public int remove(DiscussVO dis) {
 		return mapper.remove(dis);
+	}
+
+	@Override
+	public int getTotal(PageCriteria cri) {
+		return mapper.getTotal(cri);
 	}
 	
 	

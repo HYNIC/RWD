@@ -90,6 +90,12 @@ section h1 {
 	width: 1270px;
 }
 
+ul {
+	display: flex;
+	justify-content: center;
+	list-style: none;
+}
+
 /* 전체적용 끝 */
 
 /* header.jsp */
@@ -137,9 +143,6 @@ header a:hover {
 }	
 
 nav > ul {
-	display: flex;
-	justify-content: center;
-	list-style: none;
 	min-width: 330px;
 }
 

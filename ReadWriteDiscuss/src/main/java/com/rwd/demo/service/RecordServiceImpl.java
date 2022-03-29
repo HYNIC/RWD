@@ -50,12 +50,10 @@ public class RecordServiceImpl implements IRecordService {
 	@Override
 	public HashMap<Integer, String> rateMap() {
 		HashMap<Integer, String> map = new HashMap<Integer, String>();
-		map.put(0, "☆☆☆☆☆");
-		map.put(1, "★☆☆☆☆");
-		map.put(2, "★★☆☆☆");
-		map.put(3, "★★★☆☆");
-		map.put(4, "★★★★☆");
-		map.put(5, "★★★★★");
+		
+		for (int i = 0; i <= 5; i++) {
+			map.put(i,  "★".repeat(i) + "☆".repeat(5-i));
+		}
 		
 		return map;
 	}

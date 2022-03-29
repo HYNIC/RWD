@@ -14,6 +14,43 @@
 		select * from view_rwd_discuss where dis_num > 0 order by dis_num desc
 	</select>
 	
+	
+	<sql id="criteria">
+		<trim prefix="(" suffix=") AND ">
+			<if test="type == 'S'.toString()">
+				(subject like '%'||#{keyword}||'%')
+			</if>
+			<if test="type == 'T'.toString()">
+				(title like '%'||#{keyword}||'%')
+			</if>
+			<if test="type == 'W'.toString()">
+				(username like '%'||#{keyword}||'%')
+			</if>
+		</trim>
+	</sql>
+	
+	
+	<select id="getListWithPaging" resultType="com.rwd.demo.domain.DiscussVO">
+		
+		select
+			dis_num, subject, title, username, content, regdate, update_date
+		from (
+			select
+				rownum rn, dis_num, subject, title, username, content, regdate, update_date
+			from
+				view_rwd_discuss
+			where
+			
+				<include refid="criteria"></include>
+				
+		<![CDATA[			
+				rownum <= (#{page} * #{amount})
+			)
+		where rn > ((#{page} - 1) * #{amount})
+		]]>
+			
+	</select>
+	
 	<select id="getDiscuss" resultType = "com.rwd.demo.domain.DiscussVO">
 		select * from view_rwd_discuss where dis_num = #{num}
 	</select>
@@ -31,4 +68,12 @@
 		delete from rwd_discuss	where dis_num = #{dis_num}
 	</delete>
 
+	<select id="getTotal" resultType="Integer">
+		select 
+			count(*) from rwd_discuss 
+		where 
+			<include refid="criteria"></include>
+			dis_num > 0
+	</select>
+	
 </mapper>

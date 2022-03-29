@@ -6,12 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rwd.demo.domain.DiscussVO;
 import com.rwd.demo.domain.MemberVO;
+import com.rwd.demo.domain.PageCriteria;
+import com.rwd.demo.domain.PageDTO;
 import com.rwd.demo.service.IDiscussService;
 import com.rwd.demo.service.IMemberService;
 
@@ -26,11 +30,24 @@ public class DiscussController {
 	IMemberService mservice;
 	
 	
-	@GetMapping("")
-	public String getBoard(Model model, HttpSession session) {
-		model.addAttribute("board", service.getList());
+	@GetMapping({"", "/board"})
+	public String getBoard(PageCriteria cri, Model model, HttpSession session) {
+		
+		// 게시글 10개씩 보여주기
+		cri.setAmount(10);
+		model.addAttribute("board", service.getList(cri));
+		
+		// 페이지 번호 부여
+		int total = service.getTotal(cri);
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
 		
 		return "discuss/board";
+	}
+	
+	@PostMapping("/board")
+	public String movePage(@RequestParam("page") int page, RedirectAttributes rttr) {
+		rttr.addAttribute("page", page);
+		return "redirect:/discuss/board";
 	}
 	
 	@GetMapping("/regi")
@@ -43,7 +60,6 @@ public class DiscussController {
 			return "redirect:/member/login";
 		}
 		
-	
 	}
 	
 	@PostMapping("/regi")
@@ -55,20 +71,22 @@ public class DiscussController {
 	}
 	
 	@GetMapping({"/get", "/modify"})
-	public void getDiscuss(@RequestParam("num") Long num, Model model) {
+	public void getDiscuss(@RequestParam("num") Long num, @ModelAttribute("cri") PageCriteria cri, Model model) {
 		model.addAttribute("discuss", service.getDiscuss(num));
 	}
 	
 	@PostMapping("/modify")
-	public String doModify(DiscussVO vo) {
+	public String doModify(DiscussVO vo, @ModelAttribute("cri") PageCriteria cri) {
 		service.modify(vo);
-		return "redirect:/discuss/get?num=" + vo.getDis_num();
+		
+		return "redirect:/discuss/get" + cri.getListLink() + "&num=" + vo.getDis_num();
 	}
 	
 	@PostMapping("/remove")
-	public String doRemove(DiscussVO vo) {
+	public String doRemove(DiscussVO vo, @ModelAttribute("cri") PageCriteria cri) {
 		service.remove(vo);
-		return "redirect:/discuss/";
+		
+		return "redirect:/discuss/board" + cri.getListLink();
 	}
 	
 	
