@@ -115,28 +115,109 @@ if (searchBtn) {
 
 let replyBtn = document.querySelector("#replyBtn");
 let replyInput = document.querySelector("input[name='reply']");
+let replyModBtns;
 
-let dis_num_value = Number(document.querySelector("#num").value); 
+let dis_num = document.querySelector("#num"); 
+let replyUL = document.querySelector("#reply");
+
+window.onload = function () {
+	if (replyUL) {
+		showReplies(1);
+		goUpdate();
+		
+	}
+}
+
 if (replyBtn) {
 	replyBtn.addEventListener("click", () => {
 		var reply = {
 			reply: replyInput.value,
-			dis_num: dis_num_value
+			dis_num: Number(dis_num.value)
 			}
 		
-		replyService.add(reply);
-		alert("댓글등록완료");
-		
+		replyService.add(reply);		
 		replyInput.value = "";
-			
-		//showList(-1); // legacy프로젝트에서 있던것.
+		
+		alert("댓글 등록 완료");
+		showReplies(1);
 	});
 }
 
 
+function showReplies(page) {
+	replyService.getList(
+		{num: Number(dis_num.value), page:page||1}, function(list) {
+			var str = "";
+			
+			if (list == null || list.length == 0) {
+				replyUL.innerHTML = "";
+				
+				return;
+			} 
+			
+			var str = "";
+			for (var i = 0, len = list.length || 0; i < len; i++) {
+				str +="<li class='reply-li' data-rnum='"+ list[i].re_num + "'>";
+				str +="<div><div><strong>" + list[i].replyer + "</strong>";
+				str += "<small>" + list[i].replyDate + "</small></div>";
+				str += "<div><p>" + list[i].reply + "</p>";
+				str += "<small><a class='replyMod' data-rnum='"+ list[i].re_num + "'>수정</a></small></div></li>";
+			}
+			
+			replyUL.innerHTML = str;			
+			
+				
+		}); // replyService.getList callback 끝
+}
 
-function showList() {
-	replyService.getList
+function goUpdate() {
+	// '수정하기' 버튼클릭 >> 수정칸으로 바뀜.
+	replyModBtns = document.querySelectorAll(".replyMod");
+	let reply_li = document.querySelectorAll(".reply-li");
+	
+	replyModBtns.forEach((btn) => {
+		btn.addEventListener("click", () => {
+			let re_num = Number(btn.dataset.rnum); // 선택한 버튼의 data-rnum값
+			
+			reply_li.forEach((li) => {
+				if (li.dataset.rnum == re_num) { // 선택한 수정버튼의 data-rnum값과 같은 data-rnum값을 가진 li태그
+					// 그 태그의 값 가져오고, 수정input할 수 있는 창으로 바꾸기.
+					replyService.getReply(re_num, function(comment) {
+						
+						if (!document.querySelector("#re-mod-input")) {
+							str = "<div><div><strong>" + comment.replyer + "</strong></div>";
+							str += "<div><input type='text' id='re-mod-input' value='"+ comment.reply + "'>";
+							str += "<div><button id='doReplyMod' data-rnum='" + re_num + "'>수정</button>";
+							str += "<button id='replyDel' data-rnum='" + re_num + "'>삭제</button>";
+							str += "<button id='quitModify'>취소</button></div></div>";
+							li.innerHTML = str;
+						} 
+						
+						// 수정창진입 후 찐 수정위한 버튼
+						let doModBtn = document.querySelector("#doReplyMod");
+						let replyDelBtn = document.querySelector("#replyDel");
+						let quitModifyBtn = document.querySelector("#quitModify");
+						
+						// 수정기능
+						doModBtn.addEventListener("click", ()=>{
+							
+						});
+						
+						// 삭제기능
+						replyDelBtn.addEventListener("click", () => {
+							
+						});
+						
+						// 수정취소
+						quitModifyBtn.addEventListener("click", () => {
+							
+						});
+						
+					}); // getReply callback 끝
+				}
+			});					
+		});
+	});// 댓글 수정 버튼 선택 이벤트(수정창진입) 끝
 }
 
 
@@ -144,74 +225,102 @@ function showList() {
 // replyService 객체?
 var replyService = (function() {
 	
-	var xhr = new XMLHttpRequest();
-	let xhrCondition = (xhr.readyState == 4 && xhr.status == 200)
-	
-	function add(reply) {
-		xhr.onreadystatechange = function() {
-			if (xhrCondition) {
-				getList();				
+	function add(reply, callback, error) {
+		$.ajax({
+			type: 'post',
+			url: '/replies/regi',
+			data: JSON.stringify(reply),
+			contentType: 'application/json;charset=utf-8',
+			success: function(result, status, xhr) {
+				if (callback) {
+					callback(result);
+				}
+			},
+			error: function(err, xhr, status) {
+				if (error) {
+					error(err);
+				}
 			}
-				
-		}
-		
-		xhr.open('post', '/replies/regi');
-		xhr.responseType = "json";
-		xhr.setRequestHeader('Content-Type', 'application/json');
-		xhr.send(JSON.stringify(reply));
+		});
 		
 	}
 	
-	function getList(param, callback) {
+	function getList(param, callback, error) {
 		
-		let num = param.dis_num;
-		//let page = param.page || 1;
+		var num = param.num;
+		var page = param.page || 1;
 		
-		xhr.onreadystatechange = function() {
-			if (xhrCondition) {
-				let data = xhr.response;
-				
-				if(callback) {
-					callback();
+		$.getJSON("/replies/" + num + "/" + page
+				, function (data) {
+					if (callback) {
+						callback(data);
+					}
+				}).fail(function(err, xhr, status) {
+					if (error) {
+						error();
+					}
+				});
+	}
+	
+	function getReply(re_num, callback, error) {
+		$.get("/replies/" + re_num, function(result) {
+			if (callback) {
+				callback(result);
+			}
+		}).fail(function(err, xhr, status) {
+			if (error) {
+				error();
+			}
+		});
+	}
+	
+	function update(reply, callback, error) {
+		$.ajax({
+			type: 'put',
+			url: '/replies/' + reply.re_num,
+			data: JSON.stringify(reply),
+			contentType: 'application/json;charset=utf-8',
+			success: function (result, status, xhr) {
+				if (callback) {
+					callback(result);
+				}
+			},
+			error: function(err, status, xhr) {
+				if (error) {
+					error(err);
 				}
 			}
-		}
-		
-		xhr.open('post', '/replies/' + num);
-		xhr.responseType = "json";
-		xhr.setRequestHeader('Content-Type', 'application/json');
-		xhr.send();
-		
-		
-		
-		
+			
+		});
+	}
+	
+	function remove (reply, callback, error) {
+		$.ajax({
+			type: 'delete',
+			url: '/replies/' + reply.re_num,
+			data: JSON.stringify(reply),
+			contentType: 'application/json;charset=utf-8',
+			success: function (result, status, xhr) {
+				if (callback) {
+					callback(result);
+				}
+			},
+			error: function(err, status, xhr) {
+				if (error) {
+					error(err);
+				}
+			}
+			
+		});
 	}
 		
 	return {
-		add : add
+		add : add,
+		getList : getList,
+		getReply : getReply,
+		update : update,
+		remove : remove
 	};
 	
 })();
 
-// 댓글 작성폼
-/*let replyBtn = document.querySelector("#replyBtn");
-if (replyBtn) {
-	replyBtn.addEventListener("click", (e) => {
-		e.preventDefault();
-		
-		var xhr = new XMLHttpRequest();
-		
-		xhr.onreadystatechange() = function() {
-			if (xhr.readyState == 4 && xhr.status == 200) {
-				let result = xhr.responseText;
-				
-				if (result == 1) {
-					// 댓글 목록 보여주기
-				} 
-			}
-		}
-		xhr.open("post", "replies/new");
-		xhr.send();
-	})
-}
-*/

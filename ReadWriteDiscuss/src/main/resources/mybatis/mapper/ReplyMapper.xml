@@ -14,4 +14,19 @@
 		select * from rwd_discuss_reply where dis_num = #{num} and re_num > 0 order by re_num
 	</select>
 	
+	<select id="getReply" resultType="com.rwd.demo.domain.ReplyVO">
+		select * from rwd_discuss_reply where re_num = #{re_num}
+	</select>
+	
+	<update id="update">
+		update rwd_discuss_reply 
+			set reply = #{reply}, 
+				update_date = sysdate
+			where re_num = #{re_num}
+	</update>
+	
+	<delete id="delete">
+		delete rwd_discuss_reply where re_num = #{re_num}
+	</delete>
+	
 </mapper>

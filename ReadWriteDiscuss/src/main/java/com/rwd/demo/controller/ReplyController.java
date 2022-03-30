@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rwd.demo.domain.MemberVO;
@@ -26,19 +27,34 @@ public class ReplyController {
 	@Autowired
 	IReplyService service;
 	
-	@PostMapping(value = "/regi", produces = "application/json")
-	public ResponseEntity<String> regist(@RequestBody ReplyVO vo, HttpSession session) {
+	@PostMapping("/regi")
+	public int regist(@RequestBody ReplyVO vo, HttpSession session) {
 		MemberVO mem = (MemberVO) session.getAttribute("user");
 		vo.setReplyer(mem.getEmail());
 		int result = service.regist(vo);
-		return result == 1 ? new ResponseEntity<>("success", HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		return result;
+	}
+
+	
+	@GetMapping("/{num}/{page}")
+	public List<ReplyVO> getList(@PathVariable("page") int page, @PathVariable("num") Long num) {
+		PageCriteria cri = new PageCriteria(page, 10); // 댓글 페이지 처리 할 때 사용
+		
+		return service.getList(cri, num);
 	}
 	
-	@GetMapping("/{num}")
-	public ResponseEntity<List<ReplyVO>> getList(@PathVariable("num") Long num) {
-		PageCriteria cri = new PageCriteria(); // 댓글 페이지 처리 할 때 사용
-		
-		return new ResponseEntity<>(service.getList(cri, num), HttpStatus.OK);
+	@GetMapping("/{re_num}")
+	public ReplyVO getReply(@PathVariable("re_num") Long re_num) {
+		return service.getReply(re_num);
 	}
+	
+	@RequestMapping(method= {RequestMethod.PUT, RequestMethod.PATCH},
+			value = "/{re_num}")
+	public int modify(@RequestBody ReplyVO vo, @PathVariable("re_num") Long re_num) {
+		vo.setRe_num(re_num);
+		
+		return service.update(vo);
+	}
+	
 	
 }

@@ -11,4 +11,10 @@ public interface IReplyService {
 	
 	public List<ReplyVO> getList(PageCriteria cri, Long num);
 	
+	public ReplyVO getReply(Long re_num);
+	
+	public int update(ReplyVO vo);
+	
+	public int delete(ReplyVO vo);
+	
 }

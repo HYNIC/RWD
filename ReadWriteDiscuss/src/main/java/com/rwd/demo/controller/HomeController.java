@@ -11,7 +11,7 @@ import com.rwd.demo.domain.PageDTO;
 import com.rwd.demo.service.IRecordService;
 
 @Controller("/")
-public class MyController {
+public class HomeController {
 
 	
 	@RequestMapping("/")

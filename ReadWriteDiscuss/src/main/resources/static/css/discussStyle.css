@@ -1,7 +1,8 @@
 @charset "UTF-8";
 
-#discuss-board a {
+#discuss-board a, #reply a {
 	color: black;
+	cursor: pointer;
 }
 
 #discuss-board a:hover {
@@ -10,4 +11,9 @@
 
 #discuss-board li {
 	margin: 5px 10px;
+}
+
+#reply {
+	display: flex;
+	flex-direction: column;
 }

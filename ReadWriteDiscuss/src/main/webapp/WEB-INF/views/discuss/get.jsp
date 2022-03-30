@@ -38,8 +38,24 @@
 			</c:if>
 			
 			<!-- 댓글목록 -->
-			<div>
-				
+			<div class="reply-container">
+				<ul id="reply">
+					<li>
+						<div>
+						
+							<div>
+								<strong>댓글작성자</strong>
+								<small>댓글작성일</small>
+							</div>
+							
+							<div>
+								<p>댓글내용</p>
+								<small><a>수정</a></small>
+							</div>
+							
+						</div>
+					</li>
+				</ul>
 				
 			</div>
 			

@@ -13,6 +13,11 @@ public interface IReplyMapper {
 
 	public int regist(ReplyVO vo);
 	
-	public List<ReplyVO> getList(@Param("cri") PageCriteria cri, @Param("num") Long num);	
+	public List<ReplyVO> getList(@Param("cri") PageCriteria cri, @Param("num") Long num);
 	
+	public ReplyVO getReply(@Param("re_num") Long re_num);
+	
+	public int update(ReplyVO reply);
+	
+	public int delete(ReplyVO reply);
 }
