@@ -123,8 +123,6 @@ let replyUL = document.querySelector("#reply");
 window.onload = function () {
 	if (replyUL) {
 		showReplies(1);
-		goUpdate();
-		
 	}
 }
 
@@ -164,10 +162,12 @@ function showReplies(page) {
 				str += "<small><a class='replyMod' data-rnum='"+ list[i].re_num + "'>수정</a></small></div></li>";
 			}
 			
-			replyUL.innerHTML = str;			
-			
+			replyUL.innerHTML = str;		
+			goUpdate();	
 				
 		}); // replyService.getList callback 끝
+		
+	
 }
 
 function goUpdate() {
@@ -200,17 +200,26 @@ function goUpdate() {
 						
 						// 수정기능
 						doModBtn.addEventListener("click", ()=>{
+							let reply_mod_value = document.querySelector("#re-mod-input").value;
+							
+							let reply = {re_num:re_num, reply: reply_mod_value};
+							replyService.update(reply, () => {
+								location.href=window.location.href;
+							});
 							
 						});
 						
 						// 삭제기능
 						replyDelBtn.addEventListener("click", () => {
-							
+							//let reply = {re_num:re_num};
+							replyService.remove(re_num, () => {
+								location.href=window.location.href;
+							});
 						});
 						
 						// 수정취소
 						quitModifyBtn.addEventListener("click", () => {
-							
+							location.href=window.location.href; // ㅜㅜ 원래 있는데다가 포커스 주고 싶은데.. 좀 더 고민해보기
 						});
 						
 					}); // getReply callback 끝
@@ -294,11 +303,11 @@ var replyService = (function() {
 		});
 	}
 	
-	function remove (reply, callback, error) {
+	function remove (re_num, callback, error) {
 		$.ajax({
 			type: 'delete',
-			url: '/replies/' + reply.re_num,
-			data: JSON.stringify(reply),
+			url: '/replies/' + re_num,
+			//data: JSON.stringify(reply),
 			contentType: 'application/json;charset=utf-8',
 			success: function (result, status, xhr) {
 				if (callback) {

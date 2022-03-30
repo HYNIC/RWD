@@ -19,5 +19,5 @@ public interface IReplyMapper {
 	
 	public int update(ReplyVO reply);
 	
-	public int delete(ReplyVO reply);
+	public int delete(@Param("re_num") Long re_num);
 }

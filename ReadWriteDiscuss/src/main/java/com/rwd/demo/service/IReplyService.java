@@ -15,6 +15,6 @@ public interface IReplyService {
 	
 	public int update(ReplyVO vo);
 	
-	public int delete(ReplyVO vo);
+	public int delete(Long re_num);
 	
 }
