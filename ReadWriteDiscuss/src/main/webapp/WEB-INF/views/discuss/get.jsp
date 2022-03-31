@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../../includes/header.jsp" %>
 <div class="body-wrapper">
-	<div>
+	<div id="discuss-board">
 		<h2>DISCUSS</h2>
 		<!-- 게시글 내용 -->
 		<div>
@@ -23,7 +24,10 @@
 		
 		<div>
 			<button id="listBtn">목록</button>
-			<button id="modBtn">수정</button>
+			<c:if test="${user.email eq discuss.writer}">
+				<button id="modBtn">수정</button>
+			</c:if>
+			
 		</div>
 		
 		<!-- 댓글기능 -->
@@ -57,7 +61,10 @@
 					</li>
 				</ul>
 				
-			</div>
+			</div> <!-- reply-container 끝 -->
+			
+			<!-- 댓글 페이지 처리 -->
+			<div id="reply-page"></div>
 			
 			
 		</div>
@@ -71,8 +78,10 @@
 		</form>
 	</div>
 	
+	<input type="hidden" id="replyer" value="${user.email}">
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script src="/js/replyService.js"></script>
 <script src="/js/discuss.js"></script>
 <%@include file="../../includes/footer.jsp" %>

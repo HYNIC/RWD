@@ -150,3 +150,12 @@ h2 {
 	color: #D93D04;
 	padding-left: 10px;
 }
+
+.record-view button {
+	position: relative; /*임시*/
+}
+
+#record-img {
+	width: 210px;
+	height: 320px;
+}

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../../includes/header.jsp" %>
 토론 수정페이지
 
@@ -23,8 +24,10 @@
 		
 		<div>
 			<button id="listBtn">목록</button>
-			<button id="modBtn">수정</button>
-			<button id="removeBtn">삭제</button>
+			<c:if test="${user.email eq discuss.writer}">
+				<button id="modBtn">수정</button>
+				<button id="removeBtn">삭제</button>
+			</c:if>
 		</div>
 		
 		<input type="hidden" name="dis_num" value="${discuss.dis_num}">

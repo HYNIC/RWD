@@ -48,7 +48,7 @@
 						<td>${board.subject}</td>
 						<td><a class="get" href="${board.dis_num}">${board.title}</a></td>
 						<td>${board.username}</td>
-						<td>0</td>
+						<td class="replyCnt" data-dnum="${board.dis_num}">0</td>
 						<td>${board.regdate}</td>
 					</tr>
 				</c:forEach>
@@ -84,6 +84,7 @@
 	</div>
 
 </div>
-
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script src="/js/replyService.js"></script>
 <script src="/js/discuss.js"></script>
 <%@include file="../../includes/footer.jsp" %>

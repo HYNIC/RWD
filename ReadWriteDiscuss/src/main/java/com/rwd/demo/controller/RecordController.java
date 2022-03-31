@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -102,13 +103,13 @@ public class RecordController {
 	
 	// 상세조회/수정/삭제 페이지
 	@GetMapping("/get")
-	public void getRecord(@RequestParam("num") Long num, Model model) {
+	public void getRecord(@RequestParam("num") Long num, @ModelAttribute("cri") PageCriteria cri, Model model) {
 		model.addAttribute("rateList", service.rateMap());
 		model.addAttribute("record", service.getRecord(num));
 	}
 	
 	@GetMapping("/modify")
-	public String modifyForm (@RequestParam("num") Long num, Model model) {
+	public String modifyForm (@RequestParam("num") Long num, @ModelAttribute("cri") PageCriteria cri, Model model) {
 		
 		model.addAttribute("rateList", service.rateMap());
 		model.addAttribute("record", service.getRecord(num));
@@ -117,14 +118,14 @@ public class RecordController {
 	
 	// 수정 처리
 	@PostMapping("/modify")
-	public String doModify(RecordVO vo) {
+	public String doModify(RecordVO vo, @ModelAttribute("cri") PageCriteria cri) {
 		service.modify(vo);
 		return "redirect:/record/get?num=" + vo.getRec_num();
 	}
 	
 	// 삭제 처리
 	@PostMapping("/remove")
-	public String doRemove(RecordVO vo) {
+	public String doRemove(RecordVO vo, @ModelAttribute("cri") PageCriteria cri) {
 		service.remove(vo);
 		return "redirect:/record/";
 	}

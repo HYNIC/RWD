@@ -57,7 +57,7 @@
 		</c:forEach>
 		
 		<!-- hidden action form -->
-		<form id="operForm" action="post" hidden>
+		<form id="operForm" action="post">
 			<input type="hidden" id="page" name="page" value="${pageMaker.cri.page}" >
 			<input type="hidden" id="endPage" name="page" value="${pageMaker.realEnd}"> 
 		</form>

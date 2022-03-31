@@ -10,7 +10,8 @@ public class ReplyVO {
 	private Long dis_num; // 토론 게시글 번호
 	
 	private String reply; // 댓글
-	private String replyer; // 댓글 작성자
+	private String replyer; // 댓글 작성자 (이메일)
+	private String username; // 댓글작성자 이름
 	private Date replyDate;
 	private Date update_date;
 }

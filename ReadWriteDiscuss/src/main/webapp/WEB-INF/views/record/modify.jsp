@@ -55,6 +55,7 @@
 		
 		
 			<input type="hidden" name="rec_num" value="${record.rec_num}">
+			<input type="hidden" id="page" name="page" value="${cri.page}">
 		</form> 
 
 	</div>

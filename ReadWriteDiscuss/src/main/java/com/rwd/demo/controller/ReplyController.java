@@ -1,7 +1,5 @@
 package com.rwd.demo.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.rwd.demo.domain.MemberVO;
 import com.rwd.demo.domain.PageCriteria;
+import com.rwd.demo.domain.ReplyPageDTO;
 import com.rwd.demo.domain.ReplyVO;
 import com.rwd.demo.service.IReplyService;
 
@@ -30,16 +29,23 @@ public class ReplyController {
 	public int regist(@RequestBody ReplyVO vo, HttpSession session) {
 		MemberVO mem = (MemberVO) session.getAttribute("user");
 		vo.setReplyer(mem.getEmail());
+		System.out.println(vo.toString());
 		int result = service.regist(vo);
 		return result;
 	}
-
+	
+	@GetMapping("/count/{num}")
+	public int countReply(@PathVariable("num") Long num) { // discuss번호 변수로 받기		
+		System.out.println(service.countReply(num));
+		return service.countReply(num);
+	}
+	
 	
 	@GetMapping("/{num}/{page}")
-	public List<ReplyVO> getList(@PathVariable("page") int page, @PathVariable("num") Long num) {
-		PageCriteria cri = new PageCriteria(page, 10); // 댓글 페이지 처리 할 때 사용
+	public ReplyPageDTO getList(@PathVariable("page") int page, @PathVariable("num") Long num) {
+		PageCriteria cri = new PageCriteria(page, 7); // 댓글 페이지 처리 할 때 사용
 		
-		return service.getList(cri, num);
+		return service.getListPage(cri, num);
 	}
 	
 	@GetMapping("/{re_num}")

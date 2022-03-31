@@ -11,11 +11,34 @@
 	</insert>
 
 	<select id="getList" resultType="com.rwd.demo.domain.ReplyVO">
-		select * from rwd_discuss_reply where dis_num = #{num} and re_num > 0 order by re_num
+		select * from view_rwd_reply where dis_num = #{num} and re_num > 0 order by re_num
+	</select>
+	
+	<select id="getListWithPaging" resultType="com.rwd.demo.domain.ReplyVO">
+		<![CDATA[
+			select 
+				re_num, dis_num, reply, replyer, username, replydate, update_date
+			from (
+				select
+					rownum rn, re_num, dis_num, reply, replyer, username, replydate, update_date
+				from 
+					view_rwd_reply
+				where
+					dis_num = #{num} and
+					re_num > 0 and
+					rownum <= (#{cri.page} * #{cri.amount})
+				)
+			where 
+				rn > ((#{cri.page} - 1) * #{cri.amount})
+		]]>
+	</select>
+	
+	<select id="getReplyCnt" resultType="Integer">
+		select count(*) from view_rwd_reply where dis_num = #{num}
 	</select>
 	
 	<select id="getReply" resultType="com.rwd.demo.domain.ReplyVO">
-		select * from rwd_discuss_reply where re_num = #{re_num}
+		select * from view_rwd_reply where re_num = #{re_num}
 	</select>
 	
 	<update id="update">

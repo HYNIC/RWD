@@ -34,23 +34,35 @@ class ReplyMapperTest {
 		assertNotNull(mapper.getList(cri, 58L));
 	}
 	
+	@Test 
+	void testGetListWithPaging() {
+		PageCriteria cri = new PageCriteria(1, 10);
+		
+		assertNotNull(mapper.getListWithPaging(cri, 54L));
+	}
+	
+	@Test
+	void testGetReplyCnt() {
+		assertEquals(12, mapper.getReplyCnt(54L));
+	}
+	
 	@Test
 	void testGetReply() {
-		assertNotNull(mapper.getReply(77L));
+		assertNotNull(mapper.getReply(55L));
 	}
 	
-	@Test
-	void testUpdate() {
-		ReplyVO vo = new ReplyVO();
-		vo.setRe_num(88L);
-		vo.setReply("제이유닛 매퍼 수정 테스트..");
-		
-		assertEquals(1, mapper.update(vo));
-	}
-	
-	@Test
-	void testDelete() {
-		assertEquals(1, mapper.delete(79L));
-	}
+//	@Test
+//	void testUpdate() {
+//		ReplyVO vo = new ReplyVO();
+//		vo.setRe_num(88L);
+//		vo.setReply("제이유닛 매퍼 수정 테스트..");
+//		
+//		assertEquals(1, mapper.update(vo));
+//	}
+//	
+//	@Test
+//	void testDelete() {
+//		assertEquals(1, mapper.delete(79L));
+//	}
 
 }

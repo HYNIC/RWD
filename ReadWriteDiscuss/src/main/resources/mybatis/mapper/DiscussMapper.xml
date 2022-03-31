@@ -70,7 +70,7 @@
 
 	<select id="getTotal" resultType="Integer">
 		select 
-			count(*) from rwd_discuss 
+			count(*) from view_rwd_discuss 
 		where 
 			<include refid="criteria"></include>
 			dis_num > 0

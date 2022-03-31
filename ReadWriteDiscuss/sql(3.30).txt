@@ -1,0 +1,14 @@
+-- reply view
+create or replace force view view_rwd_reply
+as
+    select 
+        dr.re_num, dr.dis_num, dr.reply, dr.replyer, u.username, dr.replydate, dr.update_date
+    from 
+        rwd_discuss_reply dr,
+        rwd_user u
+    where 
+        dr.replyer = u.email;
+        
+select * from view_rwd_reply;
+drop view view_rwd_reply;
+commit;
