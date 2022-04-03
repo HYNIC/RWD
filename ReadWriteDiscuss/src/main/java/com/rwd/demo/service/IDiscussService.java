@@ -8,7 +8,7 @@ import com.rwd.demo.domain.PageCriteria;
 
 public interface IDiscussService {
 
-	public int regist(DiscussVO dis, MemberVO mem);
+	public int regist(DiscussVO dis);
 	
 	public List<DiscussVO> getList(PageCriteria cri);
 	

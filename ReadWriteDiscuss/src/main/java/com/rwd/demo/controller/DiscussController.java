@@ -65,13 +65,18 @@ public class DiscussController {
 	@PostMapping("/regi")
 	public String doRegist(DiscussVO dis, HttpSession session) {
 		MemberVO mem = (MemberVO) session.getAttribute("user");
-		service.regist(dis, mem);
+		dis.setWriter(mem.getEmail());
+		System.out.println(mem.toString());
+		System.out.println(dis.toString());
+		service.regist(dis);
 		
 		return "redirect:/discuss/";
 	}
 	
 	@GetMapping({"/get", "/modify"})
 	public void getDiscuss(@RequestParam("num") Long num, @ModelAttribute("cri") PageCriteria cri, Model model) {
+		DiscussVO dis = service.getDiscuss(num);
+		System.out.println(dis.toString());
 		model.addAttribute("discuss", service.getDiscuss(num));
 	}
 	

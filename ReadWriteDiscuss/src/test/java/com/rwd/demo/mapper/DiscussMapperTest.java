@@ -28,7 +28,7 @@ class DiscussMapperTest {
 		MemberVO mem = new MemberVO();
 		mem.setEmail("admin@rwd.com");
 		
-		assertEquals(1, mapper.regist(dis, mem));
+		assertEquals(1, mapper.regist(dis));
 
 	}
 	

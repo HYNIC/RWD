@@ -30,11 +30,19 @@
 }
 
 @font-face {
-    font-family: 'CBNUJIKJI';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2202@1.0/CBNUJIKJI.woff') format('woff');
+    font-family: 'SpoqaHanSansNeo-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Regular.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
+
+@font-face {
+    font-family: 'SpoqaHanSansNeo-Medium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Medium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 
 /* 전체적용 */
 * {
@@ -45,7 +53,7 @@
 body {
 	width: 100%;
 	height: 100%;
-	font-family: 'Hahmlet-SemiBold';
+	font-family: 'SpoqaHanSansNeo-Regular';
 	color: darkslategrey;
 }
 
@@ -55,7 +63,7 @@ a {
 }
 
 input, button, select {
-	font-family: 'Hahmlet-SemiBold';
+	font-family: 'SpoqaHanSansNeo-Medium';
 }
 
 button:hover {
@@ -63,16 +71,18 @@ button:hover {
 }
 
 section {
-	background: url("/img/index.jpg"); 
-	width: 100vw;
-	min-width: 1270px;
+	background: url("/images/index.jpg"); 
+	width: 100%;
+	min-width: 600px;
 	height: 1440px;
 	color: white;
+	
 }
 
 section:before {
 	content: '';
 	background: linear-gradient(darkslategray, transparent);
+	min-width: 1270px;
 	width: 100%;
 	height: 80%;
 	position: absolute;
@@ -87,7 +97,7 @@ section h1 {
 	transform: translateX(-50%);
 	opacity: 0.9;
 	text-align: center;
-	width: 1270px;
+	width: 600px;
 }
 
 ul {
@@ -96,6 +106,10 @@ ul {
 	list-style: none;
 }
 
+hr {
+	margin: 15px 0;
+	color: darkslategrey;
+}
 /* 전체적용 끝 */
 
 /* header.jsp */

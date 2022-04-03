@@ -17,8 +17,8 @@ public class DiscussServiceImpl implements IDiscussService {
 	IDiscussMapper mapper;
 	
 	@Override
-	public int regist(DiscussVO dis, MemberVO mem) {
-		return mapper.regist(dis, mem);
+	public int regist(DiscussVO dis) {
+		return mapper.regist(dis);
 	}
 
 	@Override

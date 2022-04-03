@@ -4,50 +4,70 @@
 <%@include file="../../includes/header.jsp" %>
 
 <div class="body-wrapper">
-	<div class="form record-form">	
-		<!-- 이 제목 나중에 .form밖으로 빼기. -->
-		<h3>${record.btitle}수정페이지</h3>
+	<div class="record-board-wrapper record-view">	
+		<h2>기록 수정</h2>
+		<hr>
 		
-		<form id="operForm" method="post" action="modify">
-			<!-- 이미지 삽입 -->
-	<!-- 	<div>
-				<div id="record-img"></div>
-				<button>이미지 선택</button>
-			</div>
-			 -->
-			<!-- 책제목 -->
-			<!-- <div>
-				<label>책제목</label>
-				<input type="text" name="btitle" readonly>
-			</div> -->
-			
-			<!-- 평점 -->
-			<div>
-				<label>평점</label>
-				<select name="rate">
-					<c:forEach var="rate" items="${rateList}">
-						<option value="${rate.key}" <c:if test="${record.rate eq rate.key}">selected</c:if>>${rate.value}</option>
-					</c:forEach>
+		<form id="operForm"  class="record-form" method="post" action="modify" enctype="multipart/form-data">
+			<div class="record-view-top">
+				
+				<!-- 이미지 삽입 -->
+		 		<div class="record-view-left">
+					<c:if test="${empty record.img}">
+						<img id="record-img" src="../../../img/NoImage.svg" />
+					</c:if>
+					<c:if test="${not empty record.img}">
+						<img id="record-img" src="../../../img/${record.img}" />
+					</c:if>
 					
-				</select>
-			</div>
+				</div>
+				
+				<div class="record-view-right record-regi-right">
+					<div>
+						<label>이미지 수정</label>
+						<input type="file" name="uploadImg">
+						<hr>
+					</div>
+					
+					<!-- 책제목 -->
+					<div>
+						<label>책제목</label>
+						<input type="text" name="btitle" value="${record.btitle}">
+						<hr>
+					</div>
+					
+					<!-- 평점 -->
+					<div>
+						<label>평점</label>
+						<select name="rate">
+							<c:forEach var="rate" items="${rateList}">
+								<option value="${rate.key}" <c:if test="${record.rate eq rate.key}">selected</c:if>>${rate.value}</option>
+							</c:forEach>
+						</select>
+						<hr>
+					</div>
+					
+					<!-- 한줄감상 -->
+					<div>
+						<label>한줄 감상</label>
+						<input type="text" name="one_line" value="${record.one_line}">
+					</div>
+				</div>
 			
-			<!-- 한줄감상 -->
-			<div>
-				<label>한줄 감상</label>
-				<input type="text" name="one_line" value="${record.one_line}">
 			</div>
-			
 	
 			
 			<!-- 기록 -->
-			<div>
-				<label>나의 기록</label>
-				<textarea name="content">${record.content}</textarea>
+			<div class="record-view-bottom record-modify">
+				<div>
+					<hr><label>나의 기록</label><hr>
+					<textarea name="content">${record.content}</textarea>
+					<hr>
+				</div>
 			</div>
 			
 			<!-- 등록버튼 -->
-			<div>
+			<div class="record-view-button">
 				<button id="listBtn">목록</button>
 				<button id="modBtn">수정</button>
 				<button id="removeBtn">삭제</button>

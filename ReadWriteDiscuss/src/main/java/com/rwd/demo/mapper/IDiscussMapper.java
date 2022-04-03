@@ -11,7 +11,7 @@ import com.rwd.demo.domain.PageCriteria;
 @Mapper
 public interface IDiscussMapper {
 	
-	public int regist(DiscussVO dis, MemberVO mem);
+	public int regist(DiscussVO dis);
 	
 	public List<DiscussVO> getList();
 	

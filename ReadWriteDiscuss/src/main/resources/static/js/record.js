@@ -21,6 +21,7 @@ if (recordLink) {
 			}
 			
 			let rec_num = document.createElement("input");
+			rec_num.type = "hidden";
 			rec_num.name = "num";
 			rec_num.value = link.getAttribute("href");
 			operForm.append(rec_num);

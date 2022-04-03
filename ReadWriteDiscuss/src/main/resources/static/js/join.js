@@ -80,9 +80,13 @@ function checkEmail() {
 				let result = xhr.responseText;
 		
 				if (result == 1) {
-					err_email.innerText = "이미 사용중인 아이디입니다.";
+					err_email.innerText = "이미 사용중인 이메일입니다.";
+					err_email.style.color = "tomato";
+					email_.forEach((email) => {
+						email.style.border = "2px solid tomato";
+					});
 				} else {
-					err_email.innerText = "사용가능한 아이디입니다.";
+					err_email.innerText = "사용가능한 이메일입니다.";
 					err_email.style.color = "seagreen";
 					email_.forEach((email) => {
 						email.style.border = "2px solid seagreen";

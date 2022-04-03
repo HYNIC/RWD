@@ -6,8 +6,8 @@
 <mapper namespace="com.rwd.demo.mapper.IRecordMapper">
 
 	<insert id="regist">
-		insert into rwd_record (rec_num, btitle, writer, rate, one_line, content)
-			values (seq_rwd_record.nextval, #{btitle}, #{writer}, #{rate}, #{one_line}, #{content})
+		insert into rwd_record (rec_num, img, btitle, writer, rate, one_line, content)
+			values (seq_rwd_record.nextval, #{img}, #{btitle}, #{writer}, #{rate}, #{one_line}, #{content})
 	</insert>
 	
 	<select id="getList" resultType="com.rwd.demo.domain.RecordVO">

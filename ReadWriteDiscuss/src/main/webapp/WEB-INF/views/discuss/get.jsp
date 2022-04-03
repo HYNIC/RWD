@@ -21,12 +21,14 @@
 			<label>내용</label>
 			<div>${discuss.content}</div>
 		</div>
-		
+	
 		<div>
 			<button id="listBtn">목록</button>
-			<c:if test="${user.email eq discuss.writer}">
+			<c:if test="${discuss.writer eq user.email}">
 				<button id="modBtn">수정</button>
 			</c:if>
+			
+			
 			
 		</div>
 		

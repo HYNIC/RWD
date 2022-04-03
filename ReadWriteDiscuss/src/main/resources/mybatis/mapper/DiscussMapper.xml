@@ -7,7 +7,7 @@
 	
 	<insert id="regist">
 		insert into rwd_discuss (dis_num, subject, title, writer, content)
-			values (seq_rwd_discuss.nextval, #{param1.subject}, #{param1.title}, #{param2.email}, #{param1.content})
+			values (seq_rwd_discuss.nextval, #{subject}, #{title}, #{writer}, #{content})
 	</insert>
 	
 	<select id="getList" resultType="com.rwd.demo.domain.DiscussVO">

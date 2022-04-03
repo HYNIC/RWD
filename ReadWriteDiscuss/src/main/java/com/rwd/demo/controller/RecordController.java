@@ -1,13 +1,15 @@
 package com.rwd.demo.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rwd.demo.domain.MemberVO;
@@ -87,11 +90,34 @@ public class RecordController {
 		return "record/regiForm";
 	}
 	
+	
 	// 게시글 등록 처리
 	@PostMapping("/regi")
-	public String doRegist(RecordVO record, RedirectAttributes rttr, HttpSession session) {
-		MemberVO user = (MemberVO) session.getAttribute("user"); // 로그인한 사용자 정보 찾기.
+	public String doRegist(@RequestParam("uploadImg") MultipartFile uploadImg, RecordVO record, RedirectAttributes rttr, HttpServletRequest request, HttpSession session) {
+		
+		// 이미지파일 업로드
+		String root_path = request.getSession().getServletContext().getRealPath("");
+		System.out.println("루트패스 : " + root_path);
+		
+		String attach_path = "\\img\\";
+		String uploadFolder = root_path + attach_path;
+		System.out.println("업로드 폴더 : " + uploadFolder);
+		
+		File saveFile = new File(uploadFolder, uploadImg.getOriginalFilename());
+		
+		try {
+			uploadImg.transferTo(saveFile);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("오리지날 파일이름: " + uploadImg.getOriginalFilename());
+		
+		// 로그인한 사용자 정보 찾기.
+		MemberVO user = (MemberVO) session.getAttribute("user"); 
 		record.setWriter(user.getEmail());
+		record.setImg(uploadImg.getOriginalFilename());
+		
 		service.regist(record);
 		
 		rttr.addFlashAttribute("result", record.getBtitle()); // 나중에 ~ 책에 대한 기록이 작성되었습니다.라는 얼럿창? 모달창? 띄우기
@@ -118,7 +144,28 @@ public class RecordController {
 	
 	// 수정 처리
 	@PostMapping("/modify")
-	public String doModify(RecordVO vo, @ModelAttribute("cri") PageCriteria cri) {
+	public String doModify(RecordVO vo, @RequestParam("uploadImg") MultipartFile uploadImg, @ModelAttribute("cri") PageCriteria cri, HttpServletRequest request) {
+		
+		if (!uploadImg.isEmpty()) {
+			// 이미지파일 업로드
+			String root_path = request.getSession().getServletContext().getRealPath("/");
+			String attach_path = "img\\";
+			String uploadFolder = root_path + attach_path;
+			
+			File saveFile = new File(uploadFolder, uploadImg.getOriginalFilename());
+			
+			try {
+				uploadImg.transferTo(saveFile);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			vo.setImg(uploadImg.getOriginalFilename());
+		} else {
+			String originalImg = service.getRecord(vo.getRec_num()).getImg();
+			vo.setImg(originalImg);
+		}
+		
 		service.modify(vo);
 		return "redirect:/record/get?num=" + vo.getRec_num();
 	}
