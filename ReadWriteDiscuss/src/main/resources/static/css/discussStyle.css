@@ -1,17 +1,138 @@
 @charset "UTF-8";
 
-#discuss-board a, #reply a {
-	color: black;
+.body-wrapper-discuss {
+	margin: 50px 0;
+	align-self: flex-start;
+	width: 1270px;
+}
+
+.body-wrapper-discuss a, #reply a {
+	color: darkslategrey;
 	cursor: pointer;
 }
 
-#discuss-board a:hover {
+.body-wrapper-discuss a:hover {
 	color: darkorange;
+	transition: 0.2s;
 }
 
-#discuss-board li {
-	margin: 5px 10px;
+.discuss-board-top {
+	display: flex;
+	justify-content: space-between;
+	margin: 15px 0;
 }
+
+.discuss-board-wrapper button {
+	width: 100px;
+	height: 35px;
+	font-size: 14px;
+	background-color: lightgrey;
+	border: 1px solid white;
+	opacity: 0.8;
+	border-radius: 5px;
+}
+
+.discuss-board-top button {
+	position: relative;
+	top: 8px;
+}
+
+.discuss-board-table {
+	width: 800px;
+	border-collapse: collapse;
+}
+
+
+
+.discuss-board-table > thead {
+	border-bottom: 5px double darkslategrey;
+	background-color: lightgrey;
+	height: 40px;
+}
+
+.discuss-board-table > tbody {
+	border-bottom: 1px solid darkgrey;
+}
+
+.discuss-board-table tr {
+	height: 35px;
+	text-align: center;
+}
+
+.discuss-subject {
+	overflow: hidden;
+	width: 130px;
+}
+
+.discuss-title {
+	text-align: left;
+}
+
+.replyCnt {
+	width: 30px;
+}
+
+.discuss-date {
+	width: 120px; 
+}
+
+.discuss-board-bottom {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 15px;
+}
+
+.discuss-board-bottom form {
+	display: flex;
+	align-items: center;
+}
+
+.discuss-board-bottom select, .discuss-board-bottom input {
+	padding: 5px 10px;
+	height: 30px;
+	border: 1px solid grey;
+	font-size: 12px;
+}
+
+.discuss-board-bottom select {
+	border-bottom-left-radius: 5px;
+	border-top-left-radius: 5px;
+	border-right: none;
+}
+
+.discuss-board-bottom input {
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	height: 18px;
+	width: 200px;
+}
+
+.discuss-board-bottom button {
+	margin-left: 3px;
+	height: 32px;
+	width: 60px;
+}
+
+li.paginate-button > a{
+	height: 30px;
+	width: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+li.paginate-button > a:hover {
+	background-color: lightgrey;
+	opacity: 0.9;
+}
+
+li.paginate-button.page-active > a{
+	background-color: darkorange;
+	opacity: 0.6;
+	color: white;
+}
+
 
 #reply {
 	display: flex;

@@ -21,6 +21,7 @@ if (discussLink) { // discussLink가 있는건 board.jsp >> board.jsp가 열리�
 			e.preventDefault();
 			
 			let dis_num = document.createElement("input");
+			dis_num.type = "hidden";
 			dis_num.name = "num";
 			dis_num.value = discuss.getAttribute("href");
 			

@@ -13,7 +13,7 @@ h2 {
 	padding-left: 10px;
 }
 
-.body-wrapper-record {
+.body-wrapper-record, .body-wrapper-discuss {
 	width: 1270px;
 	display: flex;
 	justify-self: center;
@@ -58,7 +58,6 @@ h2 {
 	width: 100px;
 	height: 40px;
 	font-size: 15px;
-	font-family: 'Hahmlet-Bold';
 	background-color: lightgrey;
 	border: 1px solid white;
 	opacity: 0.8;
@@ -137,7 +136,8 @@ img {
 }
 
 .record-view button {
-	position: relative; /*임시*/
+	position: relative;
+	right: 0;
 }
 
 #record-img {

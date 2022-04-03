@@ -129,6 +129,7 @@ header a:hover {
 	color: darkorange;
 	padding-bottom: 5px;
 	border-bottom: 1px solid darkorange;
+	transition: all 0.3s;
 }
 
 .header-container {
