@@ -22,7 +22,7 @@
 				select
 					rownum rn, re_num, dis_num, reply, replyer, username, replydate, update_date
 				from 
-					view_rwd_reply
+					(select * from view_rwd_reply order by re_num)
 				where
 					dis_num = #{num} and
 					re_num > 0 and

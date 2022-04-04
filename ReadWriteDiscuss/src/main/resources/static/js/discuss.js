@@ -182,7 +182,7 @@ if (replyUL) { // replyUL 이 있는건 get.jsp >> get.jsp가 열리면 실행�
 				for (var i = 0, len = list.length || 0; i < len; i++) {
 					//console.log(list[i]);
 					str +="<li class='reply-li' data-rnum='"+ list[i].re_num + "'>";
-					str +="<div><div><strong>" + list[i].username + "</strong>";
+					str +="<div><div><label>" + list[i].username + "</label>";
 					str += "<small>" + list[i].replyDate + "</small></div>";
 					str += "<div><p>" + list[i].reply + "</p>";
 					if (list[i].replyer == replyer.value) {
@@ -227,16 +227,16 @@ if (replyUL) { // replyUL 이 있는건 get.jsp >> get.jsp가 열리면 실행�
 		let str = "<ul class='reply-paging'>";
 		
 		if (prev) {
-			str += "<li><a class='reply-paginate' href='" + (startNum - 1) + "'><</a></li>";
+			str += "<li class='paginate-button'><a class='reply-paginate' href='" + (startNum - 1) + "'><</a></li>";
 		}
 		
 		for (let i = startNum; i <= endNum; i++) {
 			let active = pageNum == i ? 'page-active' : '';
-			str += "<li class='" + active + "'><a class='reply-paginate' href='" + i + "'>" + i + "</a></li>";
+			str += "<li class='paginate-button " + active + "'><a class='reply-paginate' href='" + i + "'>" + i + "</a></li>";
 		}
 		
 		if (next) {
-			str += "<li><a class='reply-paginate' href='" + (endNum + 1) + "'>></a></div>";
+			str += "<li class='paginate-button'><a class='reply-paginate' href='" + (endNum + 1) + "'>></a></div>";
 		}
 		
 		str += "</ul>";
@@ -274,7 +274,7 @@ if (replyUL) { // replyUL 이 있는건 get.jsp >> get.jsp가 열리면 실행�
 						replyService.getReply(re_num, function(comment) {
 							
 							if (!document.querySelector("#re-mod-input")) {
-								str = "<div><div><strong>" + comment.username + "</strong></div>";
+								str = "<div><div><label>" + comment.username + "</label></div>";
 								str += "<div><input type='text' id='re-mod-input' value='"+ comment.reply + "'>";
 								str += "<div><button id='doReplyMod' data-rnum='" + re_num + "'>수정</button>";
 								str += "<button id='replyDel' data-rnum='" + re_num + "'>삭제</button>";

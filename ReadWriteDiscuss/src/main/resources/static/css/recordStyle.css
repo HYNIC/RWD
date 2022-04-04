@@ -174,7 +174,7 @@ img {
 	
 }
 
-.record-view-bottom textarea {
+.record-view-bottom textarea, .discuss-view textarea {
 	font-family: 'SpoqaHanSansNeo-Regular';
 	min-height: 250px;
 	border: none;
@@ -194,7 +194,7 @@ img {
 	top: 20px;
 }
 
-.record-regi-right hr {
+.record-regi-right hr, .discuss-view hr {
 	margin: 8px 0;
 }
 
