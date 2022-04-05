@@ -35,10 +35,10 @@
 			
 			<hr>
 			
-			<div class="discuss-view-bottom">
+			<div class="discuss-view-bottom discuss-form-bottom">
 				<div>
 					<label>내용</label><hr>
-					<div class="discuss-view-content">${discuss.content}</div>
+					<textarea class="discuss-view-content" readonly>${discuss.content}</textarea>
 				</div>
 			
 				<div class="discuss-view-button">
@@ -54,7 +54,7 @@
 			
 				<!-- 로그인 안되어있을 경우 -->
 				<c:if test="${empty user}">
-					<label id="reply-no-user">댓글을 열람할 권한이 없습니다.</label>
+					<label id="reply-no-user">댓글을 등록할 권한이 없습니다.</label>
 				</c:if>
 				
 				<!-- 댓글작성폼 -->

@@ -21,7 +21,7 @@
 			<ul>
 				<li><a href="/record/">기록</a></li>
 				<li><a href="/discuss/">토론</a></li>
-				<li><a href="#">북킷리스트</a></li>
+				<!-- <li><a href="#">북킷리스트</a></li> -->
 			</ul>
 		</nav>
 		
@@ -38,7 +38,7 @@
 		
 		<c:if test="${not empty logged}">
 			<div class="user-info">
-				<a href="#">${logged.username}</a>
+				${logged.username}
 				<a href="/member/logout">log-out</a>
 			</div>
 		</c:if>

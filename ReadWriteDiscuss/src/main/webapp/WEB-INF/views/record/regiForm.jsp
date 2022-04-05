@@ -44,7 +44,6 @@
 					<div>
 						<label>한줄 감상</label>
 						<input type="text" name="one_line" maxlength=60>
-						<hr>
 					</div>
 					
 				</div>
